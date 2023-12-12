@@ -24,7 +24,7 @@ func _process(delta):
 	if get_child_count() == 0:						#Comprueba si se eliminan todos los elementos
 		queue_free()								#quitar la base
 
-#crear una estructura base de subelementos
+#crea una estructura base de subelementos
 func createBase():
 	for rows in range(baseElementRows):				#Bucle para el número de filas en una estructura base
 		for cols in range(baseElementCols):			#Bucle para el número de columnas en una estructura base
@@ -41,8 +41,8 @@ func createBase():
 #Esta función destruirá esta instancia base y llamará a la función de destroy para todos los elementos dentro de ella
 func _destroy():
 	for baseElement in self.get_children():			#Recorre todos los subelementos de esta base
-		baseElement._destroy()						#destruir los subelementos
-	queue_free()									#destruir esta base
+		baseElement._destroy()						#destruye los subelementos
+	queue_free()									#destruye esta base
 
 #Esta función encontrará el vecino vertical del elemento que llama y
 #Llama a la función de golpe externo dentro de él para avanzar el estado de la animación..
@@ -53,7 +53,7 @@ func _on_neighbourHit(element,dir):
 	if rw > 0 and dir == upDir:						#El vecino esta arriba
 		nen = "BaseElement_" + str(rw -1).pad_zeros(2) + element.name.substr(14,2) #Calcular el nombre del elemento vecino.
 		if has_node(nen):							#Comprueba si el vecino existe
-			nextElement = get_node(nen)				#Obtener un puntero al elemento vecino
+			nextElement = get_node(nen)				#Obtiene un puntero al elemento vecino
 			nextElement.externalHit()				#Indica que el vecino también debe ser golpeado
 	if rw < baseElementRows and dir == downDir:		#El vecino esta abajo
 		nen = "BaseElement_" + str(rw +1).pad_zeros(2) + element.name.substr(14,2) #Calcular el nombre del elemento vecino.

@@ -1,6 +1,0 @@
-.import/
-godot-cpp/
-**.o
-**.obj
-**libgodot-cpp.linux.debug.64.a
- 

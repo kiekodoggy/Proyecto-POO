@@ -1,35 +1,35 @@
 extends Node
 
-#Preload scenes
-var obase = preload("res://Scenes/Base.tscn")	#Preload the base scene
+#Precargar escenas
+var obase = preload("res://Scenes/Base.tscn")	#Precarga la escena base
 
 #Variables
-var Parent = self								#A reference to this node
-var numBases = 4								#The total number of bases
-var baseXStart = 16								#The starting X position of the first base
-var baseYStart = 215							#The starting Y position of the first base
-var baseXSpace = 56								#The X spacing of the bases
-var basesCreated = false						#Bases created flag
+var Parent = self								#Una referencia a este nodo
+var numBases = 4								#El número total de bases
+var baseXStart = 16								#La posición X inicial de la primera base
+var baseYStart = 215							#La posición Y inicial de la primera base
+var baseXSpace = 56								#El espaciado X de las bases
+var basesCreated = false						#Bandera de bases creadas
 
-#Create the bases
+#Crea las bases
 func createBases():
-	for i in range(numBases):										#Loop through all the bases to create
-		var oNew_base = obase.instance()							#Instance a base
-		oNew_base.name = "Base_" + str(i)							#Name the base
-		oNew_base.position.x =  (baseXStart + (i * baseXSpace))		#Set the base X position
-		oNew_base.position.y = (baseYStart)							#Set the base Y position
-		oNew_base.add_to_group("Bases")										#Add the base to the Bases group
-		Parent.add_child(oNew_base)									#Add the base as a child of this node
-	basesCreated = true												#Indicate that the bases have been created
+	for i in range(numBases):										#Recorre todas las bases para crear
+		var oNew_base = obase.instance()							#Instancia de una base
+		oNew_base.name = "Base_" + str(i)							#Nombra la base
+		oNew_base.position.x =  (baseXStart + (i * baseXSpace))		#Establece la posición base X
+		oNew_base.position.y = (baseYStart)							#Establece la posición Y de la base
+		oNew_base.add_to_group("Bases")										#Agrega la base al grupo Bases
+		Parent.add_child(oNew_base)									#Agrega la base como hijo de este nodo
+	basesCreated = true												#Indica que las bases han sido creadas
 
-#Re-create the bases
+#Recrea las bases
 func reCreateBases():
-	if !basesCreated:							#Check if the bases have not already been created
-		for base in self.get_children():		#First loop through any existing bases
-			base._destroy()						#destroy the base
-		createBases()							#Create new bases
+	if !basesCreated:							#Comprueba si las bases aún no han sido creadas
+		for base in self.get_children():		#Primer bucle a través de las bases existentes
+			base._destroy()						#Destruye la base
+		createBases()							#Crea nuevas bases
 
-#Destroy all the bases
+#Destruye todas las bases
 func DestroyAll():
-		for base in self.get_children():		#Loop through all the bases
-			base._destroy()						#destroy the base
+		for base in self.get_children():		#Recorre todas las bases
+			base._destroy()						#Destruye la base

@@ -3,9 +3,9 @@ extends Node2D
 #Señales
 signal playerReset			#Señal de cuándo se debe reiniciar el reproductor
 
-#Initialisation
+#Inicialización
 func _ready():
-	$Particles2D.set_emitting(true)		#Comienzan a emitir las partículas
+	$Particles2D.set_emitting(true)		#Comienza a emitir las partículas
 	$Explosion.play()					#Reproduce la animación de la explosión
 
 #Procesamiento normal de nodos

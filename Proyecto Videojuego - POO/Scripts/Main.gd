@@ -132,7 +132,7 @@ func _on_playerReset(explosion):
 			Globals.gameState = Globals.gameStates.Game_Over	#Establece el estado del juego en fin del juego
 			Globals.playerState = Globals.playerStates.Dead		#Establece el estado del jugador a muerto
 				
-#Elije un número aleatorio entre valores bajos y altos (tipo: 0 = entero, 1 = float)
+#Elige un número aleatorio entre valores bajos y altos (tipo: 0 = entero, 1 = float)
 func getRand_Range(low,high, type):
 	var rng = RandomNumberGenerator.new()			#Inicializa un generador de números aleatorios
 	rng.randomize()									#aleatoriza el resultado
@@ -154,7 +154,7 @@ func spawnSpaceShip(dir):
 		oNew_SpaceShip.connect("removeShip",self,"_on_SpaceShipRemove")							#Conecta la señal de eliminación del barco a este nodo
 		self.add_child(oNew_SpaceShip)				#Agrega la nave espacial para ser hijo de este nodo.
 
-#Eliminar la función de nave espacial		
+#Elimina la función de nave espacial		
 func _on_SpaceShipRemove(ship: Node, bulletObj: Node, hit: bool):
 	if hit:									#Comprueba si el barco fue alcanzado
 		Globals.Score += ship.PointValue	#Incrementa la puntuación por el valor de puntos de la nave espacial.

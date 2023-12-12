@@ -18,7 +18,7 @@ var ShootDirection = -1						#Dirección de disparo
 var BulletSpeed = 250						#Velocidad de bala del jugador
 var PlayerBullets							#Número de balas de jugador
 var PlayerMaxBullets = 1					#Número máximo de balas de jugador
-var pressed = {}							#Matriz de teclas presionadas
+var pressed = {}							#Variable de teclas presionadas
 var startPos:Vector2 = Vector2(112,242)		#Posición inicial del jugador
 
 #Inicialización
@@ -44,11 +44,11 @@ func _process(delta):
 			_spawnBullet()							#Genera una nueva bala
 			$Shoot_Delay.start()					#Inicia el temporizador de retraso entre disparos
 			$Shoot.play()							#Reproduce el sonido del disparo
-		if Velocity.length() > 0:					#Compruebe si el jugador se está moviendo
+		if Velocity.length() > 0:					#Comprueba si el jugador se está moviendo
 			Velocity = Velocity.normalized() * Move_Speed	#Calcula el movimiento en función de la velocidad
 		_updatePosition(Velocity * delta)			#Actualiza la posición del jugador según el tiempo transcurrido
 
-#ActualizaR la posición del jugador
+#Actualiza la posición del jugador
 func _updatePosition(movement):
 	position += movement							#Actualiza la posicion
 	position.x = (clamp(position.x, 0 + (Player_Size.x/2), Globals.Screen_Size.x -(Player_Size.x/2))) 	#Mantiene la posición x a los límites de la pantalla
@@ -63,7 +63,7 @@ func _on_Shoot_Delay_timeout():
 func _spawnBullet():
 	var Parent = get_parent()						#Obtiene una referencia al padre de este nodo
 	var oNewBullet = oBullet.instance()				#Crea una nueva instancia de bala
-	oNewBullet.position.x = position.x 				#Establece la posición de buller x a la del jugador
+	oNewBullet.position.x = position.x 				#Establece la posición de bala x a la del jugador
 	oNewBullet.position.y = position.y - (Player_Size.y/2)	#Establece la posición de la bala Y a la del jugador
 	oNewBullet._setDirection(ShootDirection,BulletSpeed)	#Establece la velocidad y dirección de la bala
 	oNewBullet.BulletType = cPlayerBullet			#Establece el tipo de bala al del jugador.

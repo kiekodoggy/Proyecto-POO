@@ -4,7 +4,7 @@ extends CanvasLayer
 var sprPlayer = preload("res://GFX/Player.png")		#Precarga el sprite del reproductor
 
 #Variables
-var players = ["HI","1UP", "2UP"]					#Matriz de jugadores (futuro multijugador)
+var players = ["HI","1UP"]					#Matriz de jugador
 var livesPos = Vector2(20,251)						#Un puntero a la ubicación de la imagen en vivo de la reproducción en el HUD
 
 #Actualizar la puntuación

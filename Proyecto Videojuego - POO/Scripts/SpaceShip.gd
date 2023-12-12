@@ -13,7 +13,7 @@ func _ready():
 	Size = $Sprite.get_texture().get_size()
 	$AnimationPlayer.play(str(Directions[Direction]))
 	PointValue = (getRand_Range(1,10,0)*100)
-# Llamó a cada fotograma. 'delta' es el tiempo transcurrido desde el cuadro anterior
+# Llama a cada fotograma. 'delta' es el tiempo transcurrido desde el cuadro anterior
 func _process(delta):
 	position.x += (Speed * delta) * Direction
 	if (position.x < 0 - Size.x and Direction == -1) or (position.x > Globals.Screen_Size.x	+ Size.y and Direction == 1):

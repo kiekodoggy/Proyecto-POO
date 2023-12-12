@@ -1,50 +1,50 @@
 extends Node2D
-#Signals
-signal removeBullet(bullet)		#A signal to indicate that this bullet should be removed
+#Señales
+signal removeBullet(bullet)		#Una señal para indicar que esta bala debe ser eliminada
 
 #Variables
-var Speed = 50					#The current bullet speed
-var Speeds = [90,110,135,250]	#The bullet speeds based on bullet type
-var Direction = 1				#The current direction of the bullet
-var BulletType = 1				#the current bullet type
-var BulletTypes = {				#The bullet types
+var Speed = 50					#La velocidad actual de la bala
+var Speeds = [90,110,135,250]	#Las velocidades de bala según el tipo de bala
+var Direction = 1				#La dirección actual de la bala
+var BulletType = 1				#El tipo de bala actual
+var BulletTypes = {				#Los tipos de bala
 	"alienBulletType1": 0,
 	"alienBulletType2": 1,
 	"alienBulletType3": 2,
 	"playerBullet":3}
-var Size = Vector2()			#A place holder for the size of this sprite
+var Size = Vector2()			#Un marcador de posición para el tamaño de este sprite
 
-#Initialisation
+#Inicialización
 func _ready():
-	Size = $Sprite.get_texture().get_size()						#Get the size of this sprite
-	Speed = Speeds[BulletType]									#Set the speed based on the bullet type
-	$AnimationPlayer.play("alienBulletType" + str(BulletType))	#Set the animation based on the bullet type
+	Size = $Sprite.get_texture().get_size()						#Obtiene el tamaño de este sprite
+	Speed = Speeds[BulletType]									#Establece la velocidad según el tipo de bala
+	$AnimationPlayer.play("alienBulletType" + str(BulletType))	#Establece la animación según el tipo de bala
 
-#Normal node processing
+#Procesamiento normal de nodos
 func _process(delta):
-	position.y += (Speed * delta) * Direction					#Update the bullet position
-	if (position.y < 0 - Size.y and Direction == -1) or (position.y > Globals.Screen_Size.y	+ Size.y and Direction == 1): #Check if the bullet is out of bounds
-		_removeBullet()											#call the remove bullet function
+	position.y += (Speed * delta) * Direction					#Actualiza la posición de la bala
+	if (position.y < 0 - Size.y and Direction == -1) or (position.y > Globals.Screen_Size.y	+ Size.y and Direction == 1): #Comprueba si la bala está fuera de límites
+		_removeBullet()											#llama a la función eliminar bala
 
-#Set the direction and speed of the bullet
+#Establece la dirección y velocidad de la bala
 func _setDirection(dir,spd):
-	Direction = dir			#Set the direction of the bullet
-	Speed = spd				#Set the speed of the bullet
+	Direction = dir			#Establece la dirección de la bala
+	Speed = spd				#Establece la velocidad de la bala
 
-#Remove the bullet
+#Quitar la bala
 func _removeBullet():
-	emit_signal("removeBullet",self)	#Request that this bullet be removed (updates bullet counts etc)
+	emit_signal("removeBullet",self)	#Solicita que se elimine esta bala (actualiza el recuento de balas, etc.)
 
-#Handle this bullet hitting an object
+#Maneja esta bala impactando un objeto
 func _on_Bullet_area_entered(area):
-	if area.is_in_group("playerBullet"):					#check if the bullet has been hit by a players bullet
+	if area.is_in_group("playerBullet"):					#comprueba si la bala ha sido alcanzada por la bala de un jugador
 		match BulletType:
-			BulletTypes.alienBulletType1:					#If this is bullet type 1 then the player destroys it
+			BulletTypes.alienBulletType1:					#Si esto es bala tipo 1, el jugador lo destruye
 				_removeBullet()
-			BulletTypes.alienBulletType2:					#If this is bullet type 2 allow a random chance of being destroyed by the player bullet
-				if Globals.getRand_Range(1,10,0) <= 5:				#Check if a random chance between 1 and 10
-					_removeBullet()							#remove the alien bullet if the value is less or equal to 5 (50/50)
-			BulletTypes.alienBulletType3:					#If this is bullet type 3 allow a random chance of being destroyed by the players bullet
-				if Globals.getRand_Range(1,10,0) <= 3:				#Check if a random chance between 1 and 10
-					_removeBullet()							#remove the player bullet is the value is less or equal to 3 (70/30)
-		area._removeBullet()								#always remvoe the player bullet
+			BulletTypes.alienBulletType2:					#Si se trata de bala tipo 2, permita una posibilidad aleatoria de ser destruido por la bala del jugador
+				if Globals.getRand_Range(1,10,0) <= 5:				#Comprueba si hay una probabilidad aleatoria entre 1 y 10
+					_removeBullet()							#Elimina la bala alienígena si el valor es menor o igual a 5 (50/50)
+			BulletTypes.alienBulletType3:					#Si se trata de bala tipo 3, permita una posibilidad aleatoria de ser destruido por la bala del jugador
+				if Globals.getRand_Range(1,10,0) <= 3:				#Comprueba si hay una probabilidad aleatoria entre 1 y 10
+					_removeBullet()							#Elimina la bala del jugador si el valor es menor o igual a 3 (70/30)
+		area._removeBullet()								#Siempre elimina la bala del jugador
